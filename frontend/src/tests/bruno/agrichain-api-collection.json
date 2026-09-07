@@ -1,0 +1,320 @@
+{
+  "info": {
+    "name": "AgriChain Farmer-Side MVP API Collection",
+    "description": "Exhaustive Bruno and Postman collection for AgriChain Backend REST APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication & Security PIN",
+      "item": [
+        {
+          "name": "POST Request OTP (Positive)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/otp/request",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"phone\": \"9876543210\"\n}" }
+          }
+        },
+        {
+          "name": "POST Request OTP (Negative - Missing Phone)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/otp/request",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" }
+          }
+        },
+        {
+          "name": "POST Verify OTP (Positive)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/otp/verify",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"phone\": \"9876543210\",\n  \"otp\": \"123456\",\n  \"fullName\": \"Ramesh Patel\",\n  \"fpoName\": \"Sehore Krishi FPO\"\n}" }
+          }
+        },
+        {
+          "name": "POST Verify OTP (Negative - Invalid OTP)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/otp/verify",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"phone\": \"9876543210\",\n  \"otp\": \"000000\"\n}" }
+          }
+        },
+        {
+          "name": "POST Set 6-Digit PIN",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/pin/set",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"pin\": \"567890\"\n}" }
+          }
+        },
+        {
+          "name": "POST Verify PIN",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/pin/verify",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"pin\": \"567890\"\n}" }
+          }
+        },
+        {
+          "name": "POST Reset PIN (Forgot PIN Flow)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/auth/pin/reset",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"phone\": \"9876543210\",\n  \"otp\": \"123456\",\n  \"newPin\": \"112233\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Farmer Profile & e-KYC",
+      "item": [
+        {
+          "name": "GET Profile (Positive)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/profile",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "GET Profile (Negative - Unauthorized)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/profile",
+            "header": []
+          }
+        },
+        {
+          "name": "PUT Profile Update",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/profile",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"mandiName\": \"Indore Krishi Mandi\",\n  \"bankAccountStub\": \"HDFC Bank A/C 9901\"\n}" }
+          }
+        },
+        {
+          "name": "POST Verify AgriStack KYC",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/profile/kyc/verify",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"aadhaarNumber\": \"1234-5678-9012\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Mandi Benchmarks & Market Intelligence",
+      "item": [
+        {
+          "name": "GET All Benchmarks",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mandi/benchmarks"
+          }
+        },
+        {
+          "name": "GET Single Crop Benchmark",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mandi/benchmarks/Sharbati%20Wheat"
+          }
+        },
+        {
+          "name": "GET Market Overview",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mandi/overview"
+          }
+        },
+        {
+          "name": "GET Weather Advisory",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mandi/weather?location=Sehore,%20MP"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Produce Lots & Inventory",
+      "item": [
+        {
+          "name": "POST Create Produce Lot (Positive)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/lots",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"cropName\": \"Sharbati Wheat\",\n  \"variety\": \"Lokwan-1 Gold\",\n  \"quantityQuintals\": 60,\n  \"qualityGrade\": \"GRADE_A\",\n  \"askingPricePerQuintal\": 3300,\n  \"storageLocation\": \"Godown B-1\"\n}" }
+          }
+        },
+        {
+          "name": "POST Create Produce Lot (Negative - Negative Quantity)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/lots",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"cropName\": \"Sharbati Wheat\",\n  \"variety\": \"Lokwan-1\",\n  \"quantityQuintals\": -5,\n  \"askingPricePerQuintal\": 3000\n}" }
+          }
+        },
+        {
+          "name": "GET Farmer Lots",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/lots",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "GET Lot by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/lots/{{lotId}}"
+          }
+        },
+        {
+          "name": "PATCH Update Lot Status",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/lots/{{lotId}}/status",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"IN_TRANSIT\"\n}" }
+          }
+        },
+        {
+          "name": "DELETE Lot (Negative - Locked in Active Deal Conflict)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/lots/{{lotId}}",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Deals & Escrow Settlement",
+      "item": [
+        {
+          "name": "GET Farmer Deals",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/deals",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "GET Deal by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/deals/{{dealId}}"
+          }
+        },
+        {
+          "name": "PATCH Update Deal Status (Complete)",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/deals/{{dealId}}/status",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"COMPLETED\"\n}" }
+          }
+        },
+        {
+          "name": "GET Escrow Records",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/escrow/records",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "POST Release Escrow",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/escrow/release",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"escrowId\": \"{{escrowId}}\"\n}" }
+          }
+        },
+        {
+          "name": "GET Farmer Wallet",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/wallet",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "POST Wallet Withdrawal Payout",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/wallet/withdraw",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"amount\": 10000,\n  \"destinationAccount\": \"UPI: 9876543210@upi\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Notifications",
+      "item": [
+        {
+          "name": "GET Notifications",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/notifications",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "PATCH Mark Notification Read",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/notifications/{{notifId}}/read",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "PATCH Mark All Read",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/notifications/read-all",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    }
+  ]
+}
