@@ -1,5 +1,4 @@
 # 🌾 AgriChain — Farmer-Side Marketplace MVP
-https://frontend-two-chi-23.vercel.app/
 
 AgriChain is a mobile-first agricultural commerce platform built for a hackathon, designed to connect Indian farmers and Farmer Producer Organizations (FPOs) directly to buyers — reducing dependency on traditional multi-layered mandi intermediaries through direct listing, price discovery, escrow-protected trades, and instant (simulated) settlement.
 
@@ -88,7 +87,7 @@ VITE_INSFORGE_ANON_KEY=your_insforge_anon_key
 
 The frontend is deployed on **Vercel**, connected to this GitHub repository for automatic redeploys on push. The backend runs on **InsForge**, which hosts the database, authentication, and REST API layer independently.
 
-**Live demo:** _add your Vercel URL here once deployed_
+**Live demo:** https://frontend-two-chi-23.vercel.app/
 
 ---
 
