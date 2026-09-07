@@ -106,6 +106,6 @@ These are documented trade-offs made to fit a hackathon timeline — the archite
 
 ## 👥 Team
 
-Karthik Singh
-Meer Fariya
+Karthik Singh,
+Meer Fariya and
 Aditya Kanthal
